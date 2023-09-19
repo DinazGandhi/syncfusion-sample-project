@@ -5130,10 +5130,7 @@ app-jobs-list {
 }
 .dashboard-wrapper {
   overflow: hidden;
-  .sidenav-body-content {
-    height: calc(100vh - 90px);
-    overflow: auto;
-  }
+  padding: 15px;
   .counts-details {
     margin: 10px 0;
     padding: 5px 30px;
