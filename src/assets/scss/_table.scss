@@ -1,0 +1,283 @@
+@import "./mixins";
+
+.mat-table {
+  width: 100%;
+  background-color: transparent !important;
+  table-layout: fixed;
+  .mat-header-cell,
+  .mat-cell {
+    width: auto;
+  }
+
+  &-wrapper {
+    height: calc(100vh - 220px);
+    overflow: auto;
+    overflow-x: hidden;
+
+    &::-webkit-scrollbar-thumb {
+      background-color: transparent;
+    }
+
+    &:hover {
+      &::-webkit-scrollbar-thumb {
+        background-color: $gray-700;
+      }
+    }
+
+    &.sidenav-table {
+      height: auto;
+      overflow: inherit;
+
+      .mat-table {
+        background-color: $white;
+
+        .mat-header-row {
+          height: $header-cell-height;
+        }
+
+        .mat-row {
+          .mat-cell {
+            padding: 5px;
+
+            img {
+              height: 22px;
+            }
+          }
+        }
+
+        .mat-header-cell {
+          background-color: $white;
+        }
+      }
+    }
+  }
+
+  .mat-header-row {
+    background-color: $primary-200;
+    height: 48px;
+    .mat-header-cell {
+      @include font-style($fontFamily, $gray-100, 14px, 600, 17px);
+      padding: 0 12px;
+      background-color: $white;
+      border-top: 1px solid rgba($black, 0.12);
+      border-bottom-color: $gray-100;
+      white-space: nowrap;
+    }
+  }
+
+  .mat-footer-row {
+    background-color: $primary;
+    color: $white;
+
+    .mat-footer-cell {
+      @include font-style($fontFamily, $white, 14px, 600, 17px);
+      border: none;
+      border-color: $hr-color;
+      padding: 0 12px;
+    }
+  }
+
+  .mat-row {
+    transition: all 0.2s ease-in-out;
+    background: initial;
+    cursor: text;
+
+    .mat-cell {
+      padding: 0 12px;
+      font-weight: 400;
+      color: $gray-100;
+    }
+
+    &:hover {
+      box-shadow: 0px 0px 6px 6px rgba(0, 0, 0, 0.05);
+
+      .grid-actions {
+        opacity: 1;
+      }
+    }
+
+    .grid-actions {
+      &.show-button {
+        opacity: 1;
+      }
+    }
+
+    &:first-child {
+      &.highlightRow {
+        .mat-cell {
+          background-color: $primary-200;
+        }
+      }
+    }
+
+    &.highlightCopiedRow {
+      .mat-cell {
+        background-color: $primary-200;
+      }
+    }
+
+    &:last-child {
+      &.highlightLastRow {
+        height: 30px;
+        position: sticky;
+        bottom: 0;
+
+        .mat-cell {
+          background-color: $primary;
+          color: $white;
+          text-align: center;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+
+  .grid-actions {
+    opacity: 0;
+
+    button {
+      line-height: 18px;
+    }
+
+    .mat-icon {
+      color: $gray-100;
+      width: 20px;
+      height: 20px;
+      font-size: 20px;
+      line-height: 20px;
+      margin: 0 3px;
+      border-radius: 50%;
+      padding: 5px;
+
+      &:hover {
+        background-color: $gray-800;
+      }
+    }
+  }
+
+  .more-button {
+    width: auto;
+    height: auto;
+    border-left: 1px solid $gray-400;
+    border-radius: 0;
+  }
+
+  .cdk-column-actions {
+    .cdk-keyboard-focused {
+      .mat-button-focus-overlay {
+        background: $black;
+      }
+    }
+  }
+
+  .sort {
+    &.cdk-keyboard-focused {
+      .mat-button-focus-overlay {
+        background: $black;
+      }
+    }
+  }
+
+  .mat-checkbox {
+    padding: 0;
+  }
+
+  .pr-35 {
+    padding-right: 35px !important;
+  }
+
+  .mat-column-actions,
+  .cdk-column-actions {
+    position: absolute;
+  }
+}
+
+tr.highlight {
+  background-color: #4caf50 !important;
+  color: #ffffff;
+}
+
+.sidenav-table {
+  width: 650px;
+
+  .mat-table-wrapper {
+    border: 1px solid $gray-300;
+    border-radius: 8px;
+    height: auto;
+    overflow: inherit;
+  }
+
+  .mat-table {
+    .mat-header-row,
+    .mat-footer-row {
+      height: 40px;
+      border: 0;
+    }
+
+    .mat-header-cell {
+      background-color: $primary-200;
+      color: $gray-100;
+      font-weight: 600;
+      white-space: nowrap;
+      border-right: 0;
+      border-bottom-color: $gray-300;
+
+      &:first-child {
+        border-radius: 8px 0 0 0;
+      }
+
+      &:last-child {
+        border-radius: 0 8px 0 0;
+      }
+    }
+
+    .mat-footer-cell {
+      background-color: $primary-200;
+      color: $gray-100;
+      font-weight: 600;
+      white-space: nowrap;
+      border-right: 0;
+      border-bottom-color: $gray-300;
+
+      &:first-child {
+        border-radius: 0 0 0 8px;
+      }
+
+      &:last-child {
+        border-radius: 0 0 8px 0;
+      }
+    }
+
+    .mat-row {
+      .mat-cell {
+        border-bottom: 1px solid $gray-300;
+        border-right: 0;
+      }
+
+      &:last-child {
+        .mat-cell {
+          border-bottom: 0;
+        }
+      }
+    }
+  }
+
+  &.sidenav-table-input {
+    width: 100%;
+    .mat-table {
+      table-layout: inherit;
+    }
+
+    .mat-row {
+      .mat-cell {
+        padding: 5px 12px;
+      }
+
+      &:last-child {
+        .mat-cell {
+          border-bottom: 0;
+        }
+      }
+    }
+  }
+}

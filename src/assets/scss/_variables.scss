@@ -1,0 +1,96 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined");
+
+$white: #ffffff;
+$black: #000000;
+$light: #fbfbfb;
+$dark: #0f192b;
+
+$primary: var(--theme-primary-50);
+$primary-100: var(--theme-primary-100);
+$primary-200: var(--theme-primary-200);
+$primary-300: var(--theme-primary-300);
+
+$purple-color: #6d41a1;
+$light-purple-color: #6661b8;
+$blue-color: #4461d7;
+$dark-blue-color: #14539a;
+$maroon-color: #a0144f;
+$green-color: #045b62;
+
+$gray: #f2f2f2;
+$gray-100: #404a5f;
+$gray-200: #a5b1be;
+$gray-300: #929eb2;
+$gray-400: #a5b1be;
+$gray-500: #aeaec0;
+$gray-600: #aa9eae;
+$gray-700: #e3e4e7;
+$gray-800: #dcdfe6;
+$gray-900: #fafafa;
+$gray-A100: #cacaca;
+
+$body-bg: $gray-700;
+$body-color: $gray-100;
+
+$border-width: 1px;
+$border-color: $gray-300;
+$border-radius: 6px;
+
+$mat-cell-height: 30px;
+$header-cell-height: 50px;
+
+$hr-color: $gray-600;
+
+$menu-border-radius: 10px;
+
+$success: #41da73;
+$success-100: #41da73;
+
+$danger: #d96c6c;
+$danger-100: #d34935;
+
+$yellow-100: #ef841e;
+$yellow-200: #fbc02d;
+
+$link: #007bff;
+
+$font-weight-bold: 600;
+
+$box-shadow: 2px 0px 2px rgba($primary-200, 0.15);
+$box-shadow-100: 0px 0px 5px rgba($black, 0.12);
+$box-shadow-200: -10px -10px 30px $white, 10px 10px 30px rgba($gray-500, 0.4);
+$box-shadow-300: 0px -4px 4px rgba($black, 0.05);
+$box-shadow-400: 2px 1px 5px rgba($black, 0.25);
+$box-shadow-500: 0px 2px 2px rgba($black, 0.25);
+
+$gradient: linear-gradient(270deg, #606ef3 0%, #d0d4fb 100%);
+$gradient-100: linear-gradient(270deg, #7f67e5 0%, #bfb3f2 100%);
+$gradient-200: linear-gradient(270deg, #fa588d 0%, #fca6c2 100%);
+$gradient-300: linear-gradient(270deg, #fed355 0%, #ffedba 100%);
+
+$swatch-colors: (
+  "white": $white,
+  "black": $black,
+  "danger": $danger,
+  "success": $success,
+  "primary": $primary,
+  "gray-100": $gray-100,
+  "gray-300": $gray-300,
+  "gray-400": $gray-400,
+  "gray-700": $gray-700,
+  "purple-color": $purple-color,
+  "yellow-100": $yellow-100,
+  "yellow-200": $yellow-200,
+  "danger-100": $danger-100,
+  "success-100": $success-100,
+);
+
+// Gray
+$lightgray: #c4c4c4;
+
+// Extra
+
+$red: #ff0000;
+
+$fontFamily: "Source Sans Pro", sans-serif;

@@ -1,0 +1,15 @@
+@mixin font-style($fFamily, $fColor, $fSize, $fWeight, $lHeight) {
+  font-family: $fFamily;
+  color: $fColor;
+  font-size: $fSize;
+  font-weight: $fWeight;
+  line-height: $lHeight;
+}
+
+@mixin icon-style($sizeValue, $iColor) {
+  width: $sizeValue;
+  height: $sizeValue;
+  color: $iColor;
+  font-size: $sizeValue;
+  line-height: $sizeValue;
+}

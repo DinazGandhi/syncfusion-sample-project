@@ -1,0 +1,96 @@
+.notification {
+  &-header {
+    background: $white;
+    box-shadow: 3px 5px 4px rgba($black, 0.1);
+    border-radius: $border-radius;
+    padding: 10px 20px;
+  }
+
+  &-body {
+    border: 1px solid $primary;
+    border-radius: $border-radius;
+    width: 100%;
+    padding: 8px 10px;
+    position: relative;
+
+    .time {
+      color: $gray-300;
+      font-size: 12px;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      height: 21px;
+      border-left: 1px dashed $primary;
+      bottom: -25px;
+      left: 15px;
+    }
+
+    button {
+      border-radius: $border-radius;
+      width: 120px;
+      line-height: 38px;
+
+      .mat-icon {
+        margin-right: 5px;
+      }
+    }
+
+    .mat-icon {
+      color: $primary;
+    }
+
+    a {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+
+  &-date {
+    font-weight: 600;
+    flex: 1;
+    align-items: center;
+  }
+
+  &-list {
+    li {
+      padding: 8px 0;
+      margin-bottom: 10px;
+
+      &:last-child {
+        margin-bottom: 0;
+
+        .notification-body {
+          &::before {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+
+  .main-avatar {
+    margin-left: -22px;
+  }
+
+  .rounded-img {
+    width: 30px;
+    height: 30px;
+
+    &-text {
+      background-color: $primary;
+      color: $white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .media-body {
+    p {
+      margin: 0;
+      word-break: break-all;
+    }
+  }
+}

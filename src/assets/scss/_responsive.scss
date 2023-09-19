@@ -1,0 +1,73 @@
+@media only screen and (max-width: 1199px) {
+  .dash-row {
+    .dash-col {
+      -ms-flex: 0 0 100%;
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+  }
+}
+
+@media (min-width: 1499px) {
+  .overall-box {
+    height: 272px !important;
+  }
+  .weekly-box {
+    height: 212px !important;
+  }
+  .billable-box {
+    height: 241px !important;
+  }
+  .byuser-box {
+    height: 241px !important;
+  }
+}
+
+@media (max-width: 1499px) {
+  .overall-box {
+    height: 240px !important;
+  }
+  .weekly-box {
+    height: 180px !important;
+  }
+  .billable-box {
+    height: 215px !important;
+  }
+  .byuser-box {
+    height: 215px !important;
+  }
+}
+@media (max-width: 1399px) {
+  .overall-box {
+    height: 240px !important;
+  }
+  .weekly-box {
+    height: 180px !important;
+  }
+  .billable-box {
+    height: 215px !important;
+  }
+  .byuser-box {
+    height: 215px !important;
+  }
+}
+@media (max-width: 1299px) {
+  #chart-container {
+    height: 250px !important;
+  }
+}
+@media (max-width: 1199px) {
+  #chart-container {
+    height: 200px !important;
+  }
+}
+@media (max-width: 992px) {
+  #chart-container {
+    height: 250px !important;
+  }
+}
+@media (max-width: 768px) {
+  #chart-container {
+    height: 250px;
+  }
+}

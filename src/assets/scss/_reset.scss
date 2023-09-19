@@ -1,0 +1,46 @@
+body {
+  color: $gray-100;
+
+  &.mat-typography {
+    h3 {
+      font-family: $fontFamily;
+    }
+  }
+}
+
+body,
+.mat-typography {
+  font-style: ($fontFamily, $gray-100, 14px, 400, 14px);
+  text-align: left;
+  padding: 0;
+  margin: 0;
+}
+
+img {
+  vertical-align: middle;
+  border-style: none;
+  max-width: 100%;
+}
+
+ul,
+li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+h2 {
+  margin: 30px;
+}
+
+a {
+  color: $primary-100;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+  line-height: 14px;
+
+  &:focus-visible {
+    outline: none;
+  }
+}

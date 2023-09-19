@@ -1,0 +1,132 @@
+.aside {
+  &-menu {
+    position: fixed;
+    top: 56px;
+    bottom: 0;
+    left: 0;
+    z-index: 103;
+    // overflow: hidden;
+    width: 100px;
+    background-color: $primary-200;
+    border-radius: 0 15px 15px 0;
+    box-shadow: 2px 0px 4px rgba(113, 130, 214, 0.15);
+    transition: all 0.1s;
+  }
+
+  .menu-item {
+    padding: 7px;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    position: relative;
+
+    span {
+      font-size: 12px;
+    }
+
+    .menu-link {
+      color: $primary-100;
+      font-weight: 600;
+      flex: 1;
+      display: inline-block;
+      text-align: center;
+
+      div {
+        flex-direction: column;
+
+        .mat-icon {
+          margin-right: 0;
+          color: $primary-100;
+        }
+      }
+    }
+
+    button {
+      position: absolute;
+      background-color: $primary-200;
+      color: $white;
+      padding: 7px 10px;
+      line-height: normal;
+      height: auto;
+      left: 90px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: none;
+      border-radius: 10px;
+      box-shadow: 0px 2px 4px rgba($black, 0.15);
+
+      .mat-icon {
+        margin-left: 12px;
+        color: $primary;
+      }
+
+      span:not(.mat-button-wrapper) {
+        font-size: 14px;
+        font-weight: 600;
+        color: $primary;
+      }
+
+      &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        left: -10px;
+        top: 50%;
+        width: 0;
+        height: 0;
+        border-top: 8px solid transparent;
+        border-bottom: 8px solid transparent;
+        border-right: 12px solid $primary-200;
+        transform: translateY(-50%);
+        filter: drop-shadow(-13px 1px 9px rgba($black, 0.4));
+      }
+    }
+
+    &.active {
+      background-color: $primary;
+
+      .menu-link {
+        color: $white;
+
+        div {
+          .mat-icon {
+            color: $white;
+          }
+        }
+      }
+
+      button {
+        .mat-icon {
+          color: $primary;
+        }
+      }
+    }
+
+    &.active:not(:hover) {
+      button {
+        display: none;
+      }
+    }
+
+    &:hover {
+      display: block;
+
+      button {
+        // display: block;
+        color: $primary-100;
+      }
+
+      span:not(.mat-button-wrapper) {
+        display: inline-block;
+      }
+    }
+
+    &:hover:not(.active) {
+      background-color: $primary-300;
+    }
+  }
+
+  &-menu-wrapper {
+    margin: 15px 10px 10px;
+  }
+}

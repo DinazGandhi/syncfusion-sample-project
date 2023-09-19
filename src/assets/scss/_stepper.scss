@@ -1,0 +1,94 @@
+.mat-stepper {
+  &-horizontal {
+    background-color: transparent;
+
+    .mat-stepper-horizontal-line {
+      border-top-width: 4px;
+      width: 140px;
+      margin-top: -50px;
+    }
+
+    .mat-horizontal-stepper-header[aria-labelledby="dnl"]
+      + .mat-stepper-horizontal-line {
+      border-color: $success;
+    }
+
+    .mat-horizontal-stepper-header[aria-labelledby="upl"]
+      + .mat-stepper-horizontal-line {
+      border-color: $success;
+    }
+  }
+}
+
+.mat-step {
+  &-header {
+    flex-direction: column;
+    justify-content: center;
+
+    &:first-child {
+      &.mat-horizontal-stepper-header {
+        padding-left: 5px;
+      }
+    }
+
+    &.mat-horizontal-stepper-header {
+      height: auto;
+      padding: 0 8px 0 16px;
+
+      &:hover:not([aria-disabled]) {
+        background-color: transparent;
+      }
+    }
+
+    // .mat-step-icon-selected {
+    //   background-color: $success;
+    // }
+
+    .mat-step-label {
+      margin-top: 10px;
+    }
+
+    .mat-step-icon {
+      width: 15px;
+      height: 15px;
+
+      .mat-icon {
+        display: none;
+      }
+    }
+
+    .mat-step-icon-state-done {
+      background-color: $success;
+    }
+  }
+
+  .mat-step-icon-selected {
+    background-color: $success;
+  }
+
+  .mat-step-icon {
+    width: 15px;
+    height: 15px;
+  }
+
+  &-icon-content {
+    position: relative;
+
+    span {
+      display: none;
+    }
+
+    &::before {
+      content: "";
+      background-color: $white;
+      height: 6px;
+      width: 6px;
+      display: block;
+      position: absolute;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}

@@ -1,0 +1,56 @@
+.mat-dialog {
+  &-container {
+    text-align: center;
+    position: relative;
+    min-width: 500px;
+    border-radius: $border-radius !important;
+    padding: 20px !important;
+    overflow: visible !important;
+
+    .mat-dialog-content {
+      text-align: left;
+      margin: 0 -15px;
+      padding: 0 15px;
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: 600;
+      color: $gray-100;
+      text-align: left;
+    }
+
+    .close-button {
+      position: absolute;
+      right: 10px;
+      top: 5px;
+
+      .mat-icon {
+        color: $gray-300;
+      }
+    }
+
+    .mat-dialog-actions {
+      justify-content: center;
+      margin-bottom: 0;
+      min-height: auto;
+      padding: 0;
+      margin-top: 15px;
+
+      .mat-button {
+        margin-left: 0 !important;
+      }
+    }
+  }
+}
+
+.mat-typography {
+  .mat-dialog-container {
+    h2 {
+      font-size: 20px;
+      font-weight: 600;
+      color: $primary;
+      text-align: left;
+    }
+  }
+}

@@ -1,0 +1,53 @@
+.alert {
+  max-width: 360px;
+  background-color: $white;
+  border-radius: 0;
+  position: relative;
+  padding: 12px 35px 12px 15px;
+  box-shadow: none;
+  .alert-close {
+    position: absolute;
+    top: 16px;
+    right: 10px;
+    .mat-icon {
+      width: 16px;
+      height: 16px;
+      font-size: 20px;
+      line-height: 16px;
+      color: $gray-300;
+    }
+  }
+
+  .mat-icon {
+    cursor: pointer;
+
+    &.error-icon,
+    &.check-icon {
+      font-size: 24px;
+      width: 24px;
+      height: 24px;
+      line-height: 24px;
+      margin-right: 15px;
+    }
+
+    &.close-icon {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+    }
+  }
+
+  p {
+    margin: 0;
+  }
+
+  &-danger {
+    border-left: 4px solid $danger-100;
+    background-color: #ffeeeb;
+  }
+
+  &-success {
+    border-left: 4px solid $success;
+    background-color: #e1ffeb;
+  }
+}
