@@ -44,13 +44,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     ChartModule,
     MatIconModule,
     MatSelectModule,
+    AccumulationChartModule,
     FormsModule,
     NgSelectModule
   ],
   providers: [
     DatePipe,
     AccumulationAnnotationService,
-    AccumulationChartModule,
     AccumulationDataLabelService,
     AccumulationLegendService,
     AccumulationTooltipService,

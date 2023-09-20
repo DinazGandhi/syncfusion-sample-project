@@ -3,6 +3,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import {
   AccumulationTheme,
   ChartTheme,
+  IAccLoadedEventArgs,
   ILoadedEventArgs
 } from '@syncfusion/ej2-angular-charts';
 import { Browser } from '@syncfusion/ej2-base';
@@ -210,9 +211,9 @@ export class DashboardComponent implements OnInit {
   };
 
   // custom code start
-  public loadInvoiceAmountByCategory(args: any): void {
+  public loadInvoiceAmountByCategory(args: IAccLoadedEventArgs): void {
     let selectedTheme: string = location.hash.split('/')[1];
-    selectedTheme = selectedTheme ? selectedTheme : 'Material';
+    selectedTheme = selectedTheme ?? 'Material';
     args.accumulation.theme = <AccumulationTheme>(
       (selectedTheme.charAt(0).toUpperCase() + selectedTheme.slice(1))
         .replace(/-dark/i, 'Dark')
