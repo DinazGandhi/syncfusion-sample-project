@@ -1,14 +1,13 @@
-<div class="dashboard-wrapper">
+<div class="dashboard-wrapper mt-3">
     <div class="sidenav-body-content">
       <div class="content-header">
-        <div class="content-header-input">
+        <div class="content-header-input mb-1">
           <button
             class="action-button primary-button"
             mat-button
             disableRipple
             (click)="addWidgetClick()"
           >
-            <mat-icon>add</mat-icon>
             <span>Add Widget</span>
           </button>
         </div>
@@ -650,7 +649,6 @@
                       </ejs-chart>
                     </div>
                     <div class="norecord-chart" *ngIf="seriesData?.length === 0">
-                      <img src="assets/images/column-icon.svg" alt="Column Chart" />
                       <p class="pt-10">No data available yet!</p>
                     </div>
                   </div>
@@ -711,7 +709,6 @@
                         mat-button
                         disableRipple
                       >
-                        <mat-icon fontSet="material-icons-outlined">timer</mat-icon>
                         Start Timer
                       </button>
                   </div>
@@ -1010,7 +1007,6 @@
                 </div>
 
                 <div class="norecord-chart d-none">
-                  <img src="assets/images/line-icon.svg" alt="Line Chart" />
                   <p class="pt-10">No data available yet!</p>
                 </div>
               </div>
@@ -1065,7 +1061,6 @@
                 </div>
 
                 <div class="norecord-chart d-none">
-                  <img src="assets/images/column-icon.svg" alt="Column Chart" />
                   <p class="pt-10">No data available yet!</p>
                 </div>
               </div>
@@ -1127,7 +1122,6 @@
                 </div>
 
                 <div class="norecord-chart d-none">
-                  <img src="assets/images/pia-icon.svg" alt="Pie Chart" />
                   <p class="pt-10">No data available yet!</p>
                 </div>
 
