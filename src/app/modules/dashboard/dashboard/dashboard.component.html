@@ -966,7 +966,53 @@
                 </span>
               </div>
               <div class="dash-body">
-                <p>Testing >> Income Trend</p>
+                <div class="cust-height mt-1">
+                  <ejs-chart
+                    style="display: block"
+                    class="fees-dash-height"
+                    [chartArea]="chartArea"
+                    [width]="width"
+                    align="center"
+                    id="chartcontainer"
+                    [primaryXAxis]="primaryXAxisIncomeTrend"
+                    [primaryYAxis]="primaryYAxisIncomeTrend"
+                    [tooltip]="tooltipIncomeTrend"
+                    (load)="load($event)"
+                    [legendSettings]="legendIncomeTrend"
+                  >
+                    <e-series-collection>
+                      <e-series
+                        [dataSource]="data"
+                        type="StackingLine"
+                        xName="x"
+                        yName="y"
+                        name="Invoiced"
+                        width="2"
+                        [marker]="marker"
+                        opacity="1"
+                        fill="#7B76D3"
+                      >
+                      </e-series>
+                      <e-series
+                        [dataSource]="data1"
+                        type="StackingLine"
+                        xName="x"
+                        yName="y"
+                        name="Received"
+                        width="2"
+                        [marker]="marker1"
+                        opacity="1"
+                        fill="#F2816F"
+                      >
+                      </e-series>
+                    </e-series-collection>
+                  </ejs-chart>
+                </div>
+
+                <div class="norecord-chart d-none">
+                  <img src="assets/images/line-icon.svg" alt="Line Chart" />
+                  <p class="pt-10">No data available yet!</p>
+                </div>
               </div>
             </div>
           </div>
@@ -995,7 +1041,33 @@
                 </span>
               </div>
               <div class="dash-body">
-                <p>Testing >> Revenue Flow</p>
+                <div class="cust-height mt-1">
+                  <ejs-chart
+                    allowResizing="true"
+                    class="fees-dash-height"
+                    id="revenue-flow"
+                    [primaryXAxis]="primaryXAxisRevenueFlow"
+                    [primaryYAxis]="primaryYAxisRevenueFlow"
+                    [title]="titleRevenueFlow"
+                    [tooltip]="tooltipRevenueFlow"
+                  >
+                    <e-series-collection>
+                      <e-series
+                        fill="#B9DD94"
+                        columnWidth="0.4"
+                        [dataSource]="chartDataRevenueFlow"
+                        type="Column"
+                        xName="country"
+                        yName="gold"
+                      ></e-series>
+                    </e-series-collection>
+                  </ejs-chart>
+                </div>
+
+                <div class="norecord-chart d-none">
+                  <img src="assets/images/column-icon.svg" alt="Column Chart" />
+                  <p class="pt-10">No data available yet!</p>
+                </div>
               </div>
             </div>
           </div>
@@ -1026,7 +1098,39 @@
                 </span>
               </div>
               <div class="dash-body p-0">
-                <p>Testing >> Invoice Amount by Category</p>
+                <div>
+                  <ejs-accumulationchart
+                    id="invoice-category"
+                    class="fees-dash-height"
+                    align="center"
+                    [legendSettings]="legendSettingsInvoiceAmountByCategory"
+                    [tooltip]="tooltipInvoiceAmountByCategory"
+                    selectionMode="Point"
+                    (load)="loadInvoiceAmountByCategory($event)"
+                    [enableBorderOnMouseMove]="false"
+                  >
+                    <e-accumulation-series-collection>
+                      <e-accumulation-series
+                        name="Revenue"
+                        [palettes]="paletteInvoiceAmountByCategory"
+                        [dataSource]="dataInvoiceAmountByCategory"
+                        xName="x"
+                        [startAngle]="startAngle"
+                        yName="y"
+                        [radius]="radius"
+                        [innerRadius]="innerRadius"
+                        [dataLabel]="dataLabelInvoiceAmountByCategory"
+                      >
+                      </e-accumulation-series>
+                    </e-accumulation-series-collection>
+                  </ejs-accumulationchart>
+                </div>
+
+                <div class="norecord-chart d-none">
+                  <img src="assets/images/pia-icon.svg" alt="Pie Chart" />
+                  <p class="pt-10">No data available yet!</p>
+                </div>
+
               </div>
             </div>
           </div>

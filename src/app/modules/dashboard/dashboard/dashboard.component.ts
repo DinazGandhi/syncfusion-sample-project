@@ -1,5 +1,11 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  AccumulationTheme,
+  ChartTheme,
+  ILoadedEventArgs
+} from '@syncfusion/ej2-angular-charts';
+import { Browser } from '@syncfusion/ej2-base';
 
 export enum DashboardWidget {
   TimesheetSummary = 1,
@@ -7,16 +13,9 @@ export enum DashboardWidget {
   TaskWiseHoursDetails = 3,
   TimerWidget = 4,
   FeesSummary = 10,
-  InvoiceAmountByInvoiceMonth = 11,
-  BalanceAmountByDueMonth = 12,
   InvoiceAmountByCategory = 13,
-  TopClientsByInvoiceAmount = 14,
-  TopClientsWithBalance = 15,
   IncomeTrend = 16,
   RevenueFlow = 17,
-  PaymentMethods = 18,
-  EstimatesStatus = 19,
-  InvoiceStatus = 20,
 }
 
 @Component({
@@ -58,6 +57,175 @@ export class DashboardComponent implements OnInit {
   end: string = '';
   taskWiseHoursDetails: any;
   taskId = '';
+  //#endregion
+
+  //#region Income Trend
+  public data: Object[] = [
+    { x: 'Jan', y: 90 },
+    { x: 'Feb', y: 80 },
+    { x: 'Mar', y: 50 },
+    { x: 'Apr', y: 70 },
+    { x: 'May', y: 30 },
+    { x: 'Jun', y: 10 },
+    { x: 'Jul', y: 100 },
+    { x: 'Aug', y: 55 },
+    { x: 'Sep', y: 20 },
+    { x: 'Oct', y: 40 },
+    { x: 'Nov', y: 45 },
+    { x: 'Dec', y: 75 },
+  ];
+  public data1: Object[] = [
+    { x: 'Jan', y: 40 },
+    { x: 'Feb', y: 90 },
+    { x: 'Mar', y: 80 },
+    { x: 'Apr', y: 30 },
+    { x: 'May', y: 80 },
+    { x: 'Jun', y: 40 },
+    { x: 'Jul', y: 30 },
+    { x: 'Aug', y: 95 },
+    { x: 'Sep', y: 50 },
+    { x: 'Oct', y: 20 },
+    { x: 'Nov', y: 15 },
+    { x: 'Dec', y: 45 },
+  ];
+
+  //Initializing Primary X Axis
+  public primaryXAxisIncomeTrend: Object = {
+    majorGridLines: { width: 0 },
+    minorGridLines: { width: 0 },
+    majorTickLines: { width: 0 },
+    minorTickLines: { width: 0 },
+    interval: 1,
+    lineStyle: { width: 0 },
+    valueType: 'Category',
+    labelRotation: Browser.isDevice ? -45 : 0,
+    labelIntersectAction: Browser.isDevice ? 'None' : 'Rotate45',
+  };
+  //Initializing Primary Y Axis
+  public primaryYAxisIncomeTrend: Object = {
+    // title: 'Expense',
+    lineStyle: { width: 0 },
+    minimum: 0,
+    // maximum: 400,
+    interval: 100,
+    majorTickLines: { width: 0 },
+    majorGridLines: { width: 1 },
+    minorGridLines: { width: 1 },
+    minorTickLines: { width: 0 },
+    labelFormat: '£ {value}',
+  };
+  public tooltipIncomeTrend: Object = {
+    enable: true,
+  };
+  public legendIncomeTrend: Object = {
+    visible: true,
+    enableHighlight: true,
+  };
+  // custom code start
+  public load(args: ILoadedEventArgs): void {
+    let selectedTheme: string = location.hash.split('/')[1];
+    selectedTheme = selectedTheme ?? 'Material';
+    args.chart.theme = <ChartTheme>(
+      (selectedTheme.charAt(0).toUpperCase() + selectedTheme.slice(1))
+        .replace(/-dark/i, 'Dark')
+        .replace(/contrast/i, 'Contrast')
+    );
+  }
+  // custom code end
+  public chartArea: Object = {
+    border: {
+      width: 0,
+    },
+  };
+  public width: string = Browser.isDevice ? '100%' : '100%';
+  public marker: Object = {
+    visible: true,
+    height: 7,
+    width: 7,
+    shape: 'Circle',
+    isFilled: true,
+  };
+  public marker1: Object = {
+    visible: true,
+    height: 7,
+    width: 7,
+    shape: 'Diamond',
+    isFilled: true,
+  };
+  public marker2: Object = {
+    visible: true,
+    height: 5,
+    width: 5,
+    shape: 'Rectangle',
+    isFilled: true,
+  };
+  public marker3: Object = {
+    visible: true,
+    height: 6,
+    width: 6,
+    shape: 'Triangle',
+    isFilled: true,
+  };
+  //#endregion
+
+  //#region Revenue Flow
+  public primaryXAxisRevenueFlow?: Object;
+  public chartDataRevenueFlow?: Object[];
+  public titleRevenueFlow?: string;
+  public primaryYAxisRevenueFlow?: Object;
+  public tooltipRevenueFlow: Object = {
+    enable: true,
+    header: '<b>£ {point.tooltip}</b>',
+    shared: true,
+  };
+  //#endregion
+
+  //#region Invoice Amount By Category
+  public dataInvoiceAmountByCategory: Object[] = [
+    { x: 'Adhoc', y: 60, text: '50%' },
+    { x: 'Services', y: 30, text: '30%' },
+    { x: 'Expense', y: 10, text: '20%' },
+  ];
+  //Initializing Legend
+  public legendSettingsInvoiceAmountByCategory: Object = {
+    visible: true,
+    toggleVisibility: false,
+    position: Browser.isDevice ? 'Bottom' : 'Right',
+    height: Browser.isDevice ? '40%' : '60%',
+    width: Browser.isDevice ? '60%' : '40%',
+    textWrap: 'Wrap',
+    maximumLabelWidth: 200,
+  };
+  // public title: string = Browser.isDevice ? "Browser Market Share" : '';
+  public innerRadius: string = '70%';
+  public startAngle: number = 40;
+  public radius: string = '90%';
+  //Initializing Datalabel
+  public dataLabelInvoiceAmountByCategory: Object = {
+    name: 'text',
+    visible: true,
+    font: {
+      color: '#ffffff',
+    },
+  };
+
+  // custom code start
+  public loadInvoiceAmountByCategory(args: any): void {
+    let selectedTheme: string = location.hash.split('/')[1];
+    selectedTheme = selectedTheme ? selectedTheme : 'Material';
+    args.accumulation.theme = <AccumulationTheme>(
+      (selectedTheme.charAt(0).toUpperCase() + selectedTheme.slice(1))
+        .replace(/-dark/i, 'Dark')
+        .replace(/contrast/i, 'Contrast')
+    );
+  }
+  public tooltipInvoiceAmountByCategory: Object = {
+    enable: true,
+    format: '<span>${point.x}</span> : £ <span>${point.y}%</span>',
+    header: '',
+  };
+
+  public paletteInvoiceAmountByCategory?: string[];
   //#endregion
 
   constructor(public datepipe: DatePipe) {
@@ -125,10 +293,12 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.addWidgetClick();
+    this.bindTaskWiseHoursDetails();
+    this.bindRevenueFlowDetails();
+    this.bindInvoiceAmountByCategoryDetails();
 
     setTimeout(() => {
-      this.getTaskWiseHoursDetails();
-      // window.dispatchEvent(new Event('resize'));
+      window.dispatchEvent(new Event('resize'));
     }, 1000);
   }
 
@@ -215,7 +385,7 @@ export class DashboardComponent implements OnInit {
     // }, 1000);
   }
 
-  getTaskWiseHoursDetails(): void {
+  bindTaskWiseHoursDetails(): void {
     //#region  Task Wise Hours Chart Details
     this.palette = ['#B9DD94', '#93CAF0', '#F1D071', '#C4C24A'];
     this.primaryXAxis = {
@@ -276,5 +446,37 @@ export class DashboardComponent implements OnInit {
     window.dispatchEvent(new Event('resize'));
 
     //#endregion
+  }
+
+  bindRevenueFlowDetails(): void {
+    this.tooltipRevenueFlow = { enable: true };
+    this.chartDataRevenueFlow = [
+      { country: 'Sun', gold: 12 },
+      { country: 'Mon', gold: 10 },
+      { country: 'Tue', gold: 9 },
+      { country: 'Wed', gold: 18 },
+      { country: 'Thu', gold: 10 },
+      { country: 'Fri', gold: 17 },
+      { country: 'Sat', gold: 8 },
+    ];
+    this.primaryXAxisRevenueFlow = {
+      valueType: 'Category',
+    };
+    this.primaryYAxisRevenueFlow = {
+      minimum: 0,
+      // maximum: 100
+    };
+  }
+
+  bindInvoiceAmountByCategoryDetails(): void {
+    this.paletteInvoiceAmountByCategory = [
+      '#B9DD94',
+      '#7CB5EC',
+      '#E4E4E4',
+      '#F2816F',
+      '#BFBBE9',
+      '#FFD1A7',
+      '#7CB5EC',
+    ];
   }
 }

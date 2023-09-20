@@ -1,12 +1,33 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { NgSelectModule } from '@ng-select/ng-select';
 import {
-  ChartModule
+  AccumulationAnnotationService,
+  AccumulationChartModule,
+  AccumulationDataLabelService,
+  AccumulationLegendService,
+  AccumulationTooltipService,
+  BarSeriesService,
+  CategoryService,
+  ChartAnnotationService,
+  ChartModule,
+  ColumnSeriesService,
+  DateTimeService,
+  LegendService,
+  LineSeriesService,
+  PieSeriesService,
+  RangeColumnSeriesService,
+  ScrollBarService,
+  SplineSeriesService,
+  StackingBarSeriesService,
+  StackingColumnSeriesService,
+  StackingLineSeriesService,
+  StepLineSeriesService,
+  TooltipService,
 } from '@syncfusion/ej2-angular-charts';
 import { DashboardLayoutModule } from '@syncfusion/ej2-angular-layouts';
 import { DashboardRoutingModule } from './dashboard-routing.module';
@@ -26,6 +47,31 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     FormsModule,
     NgSelectModule
   ],
-  providers: [DatePipe]
+  providers: [
+    DatePipe,
+    AccumulationAnnotationService,
+    AccumulationChartModule,
+    AccumulationDataLabelService,
+    AccumulationLegendService,
+    AccumulationTooltipService,
+    BarSeriesService,
+    CategoryService,
+    ChartAnnotationService,
+    ChartModule,
+    ColumnSeriesService,
+    DateTimeService,
+    LegendService,
+    LineSeriesService,
+    PieSeriesService,
+    RangeColumnSeriesService,
+    ScrollBarService,
+    SplineSeriesService,
+    StackingBarSeriesService,
+    StackingColumnSeriesService,
+    StackingLineSeriesService,
+    StepLineSeriesService,
+    TooltipService,
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })
 export class DashboardModule { }
