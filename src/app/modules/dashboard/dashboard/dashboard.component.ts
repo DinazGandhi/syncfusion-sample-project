@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
 import {
   AccumulationTheme,
   ChartTheme,
@@ -7,6 +7,12 @@ import {
   ILoadedEventArgs
 } from '@syncfusion/ej2-angular-charts';
 import { Browser } from '@syncfusion/ej2-base';
+
+import {
+  CdkDragEnter,
+  CdkDropList,
+  moveItemInArray
+} from '@angular/cdk/drag-drop';
 
 export enum DashboardWidget {
   TimesheetSummary = 1,
@@ -479,5 +485,36 @@ export class DashboardComponent implements OnInit {
       '#FFD1A7',
       '#7CB5EC',
     ];
+  }
+
+
+  cards = [
+    { title: 'Card 1', cols: 8, rows: 1 },
+    { title: 'Card 2', cols: 6, rows: 1 },
+    { title: 'Card 3', cols: 2, rows: 1 },
+  ];
+
+  entered($event: CdkDragEnter) {
+    console.log($event.item.data, $event.container.data);
+    moveItemInArray(this.cards, $event.item.data, $event.container.data);
+  }
+
+  entered2($event: CdkDragEnter) {
+    console.log($event.item.data, $event.container.data);
+    moveItemInArray(this.cards, $event.item.data, $event.container.data);
+  }
+
+  @ViewChildren(CdkDropList) dropsQuery: QueryList<CdkDropList> = new QueryList<CdkDropList>();
+
+  drops: CdkDropList[] = [];
+
+  ngAfterViewInit() {
+    this.dropsQuery.changes.subscribe(() => {
+      this.drops = this.dropsQuery.toArray();
+    });
+    Promise.resolve().then(() => {
+      this.drops = this.dropsQuery.toArray();
+      console.log(this.drops);
+    });
   }
 }

@@ -1,1135 +1,263 @@
 <div class="dashboard-wrapper mt-3">
-    <div class="sidenav-body-content">
-      <div class="content-header">
-        <div class="content-header-input mb-1">
-          <button
-            class="action-button primary-button"
-            mat-button
-            disableRipple
-            (click)="addWidgetClick()"
-          >
-            <span>Add Widget</span>
-          </button>
-        </div>
+  <div class="sidenav-body-content">
+    <div class="content-header">
+      <div class="content-header-input mb-1">
+        <button class="action-button primary-button" mat-button disableRipple (click)="addWidgetClick()">
+          <span>Add Widget</span>
+        </button>
       </div>
-        <div class="control-section">
-          <ejs-dashboardlayout
-            columns="3"
-            id="default_dashboard"
-            #default_dashboard
-            [cellSpacing]="cellSpacing"
-            [cellAspectRatio]="cellAspectRatio"
-            (dragStop)="onDragStop($event)"
-          >
-            <div *ngFor="let widget of userWidgetsList">
-              <div
-                *ngIf="
-                  widget.widgetId === dashboardWidget.TimesheetSummary &&
-                  widget.isEnable
-                "
-                id="zero"
-                class="e-panel"
-                data-row="0"
-                data-col="0"
-                data-sizex="3"
-                data-sizey="1"
-              >
-                <div class="card p-0">
-                  <div
-                    class="dash-heading hr-bottom d-flex align-items-center justify-space-between"
-                  >
-                    <div class="dash-title">Time Summary</div>
-                    <span
-                      id="close"
-                      class="e-template-icon e-close-icon"
-                      (click)="onCloseIcon(widget, $event)"
-                    >
-                      <mat-icon class="cursor-pointer">close</mat-icon>
-                    </span>
-                  </div>
+    </div>
+    <div class="control-section">
+      <div class="grid-container" style="height: 615px; overflow: hidden;">
+      <mat-grid-list cols="8" rowHeight="1:2" gutterSize="20px">
+        <mat-grid-tile *ngFor="let card of cards; let i = index" [colspan]="card.cols"
+        [rowspan]="card.rows">
+          <cdk-drop-list [cdkDropListConnectedTo]="drops" [cdkDropListData]="i">
+              <mat-card *ngIf="card.title==='Card 1'" cdkDrag (cdkDragEntered)="entered($event)" [cdkDragData]="i" class="dashboard-card">
+                <mat-card-content class="dashboard-card-content">
+                  <h1>{{ card.title }}</h1>
+                  <div class="dash-col-full">
+                    <div>
+                      <div class="card p-0">
+                        <div class="dash-heading hr-bottom d-flex align-items-center justify-space-between">
+                          <div class="dash-title">Time Summary</div>
+                          <span id="close" class="e-template-icon e-close-icon">
+                            <mat-icon class="cursor-pointer">close</mat-icon>
+                          </span>
+                        </div>
 
-                  <div class="card-wrapper p-1">
-                    <div class="card">
-                      <div class="card-body">
-                        <div class="card-text">
-                          <h2 class="font-size-16 fw-normal text-gray pb-5">
-                            Clients
-                          </h2>
-                          <span class="font-size-24 fw-bold"
-                            >{{ timeDashboardSummary?.totalWorkingClients }} /
-                            <span class="font-size-14 fw-normal">{{
-                              timeDashboardSummary?.totalAvailableClients
-                            }}</span></span
-                          >
-                        </div>
-                        <div class="card-img green-box">
-                          <mat-icon fontSet="material-icons-outlined"
-                            >work_outline</mat-icon
-                          >
-                        </div>
-                      </div>
-                      <div class="card-footer pt-10 hr mt-10">
-                        <div class="d-flex align-items-center gap-5">
-                          <div class="view-list d-flex align-items-center gap-5">
-                            <div
-                              *ngIf="timeDashboardSummary?.clientScore === 0"
-                              class="d-flex align-items-center danger"
-                            >
-                              <mat-icon class="font-size-16">south_east</mat-icon
-                              >{{ timeDashboardSummary?.totalClientDifference }}
+                        <div class="card-wrapper p-1">
+                          <div class="card">
+                            <div class="card-body">
+                              <div class="card-text">
+                                <h2 class="font-size-16 fw-normal text-gray pb-5">
+                                  Clients
+                                </h2>
+                                <span class="font-size-24 fw-bold">{{ timeDashboardSummary?.totalWorkingClients }} /
+                                  <span class="font-size-14 fw-normal">{{
+                                    timeDashboardSummary?.totalAvailableClients
+                                    }}</span></span>
+                              </div>
+                              <div class="card-img green-box">
+                                <mat-icon fontSet="material-icons-outlined">work_outline</mat-icon>
+                              </div>
                             </div>
-                            <div
-                              *ngIf="timeDashboardSummary?.clientScore === 1"
-                              class="d-flex align-items-center success"
-                            >
-                              <mat-icon class="font-size-16">north_east</mat-icon
-                              >{{ timeDashboardSummary?.totalClientDifference }}
+                            <div class="card-footer pt-10 hr mt-10">
+                              <div class="d-flex align-items-center gap-5">
+                                <div class="view-list d-flex align-items-center gap-5">
+                                  <div *ngIf="timeDashboardSummary?.clientScore === 0"
+                                    class="d-flex align-items-center danger">
+                                    <mat-icon class="font-size-16">south_east</mat-icon>{{
+                                    timeDashboardSummary?.totalClientDifference }}
+                                  </div>
+                                  <div *ngIf="timeDashboardSummary?.clientScore === 1"
+                                    class="d-flex align-items-center success">
+                                    <mat-icon class="font-size-16">north_east</mat-icon>{{
+                                    timeDashboardSummary?.totalClientDifference }}
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    </div>
 
-                    <div class="card">
-                      <div class="card-body">
-                        <div class="card-text">
-                          <h2 class="font-size-16 fw-normal text-gray pb-5">
-                            Tasks
-                          </h2>
-                          <span class="font-size-24 fw-bold"
-                            >{{ timeDashboardSummary?.totalWorkingTasks }} /
-                            <span class="font-size-14 fw-normal">{{
-                              timeDashboardSummary.totalAvailableTasks
-                            }}</span></span
-                          >
-                        </div>
-                        <div class="card-img red-box">
-                          <mat-icon fontSet="material-icons-outlined"
-                            >task</mat-icon
-                          >
-                        </div>
-                      </div>
-                      <div class="card-footer pt-10 hr mt-10">
-                        <div class="d-flex align-items-center gap-5">
-                          <div class="view-list d-flex align-items-center gap-5">
-                            <div
-                              *ngIf="timeDashboardSummary?.taskScore === 0"
-                              class="d-flex align-items-center danger"
-                            >
-                              <mat-icon class="font-size-16">south_east</mat-icon
-                              >{{ timeDashboardSummary?.totalTaskDifference }}
+                          <div class="card">
+                            <div class="card-body">
+                              <div class="card-text">
+                                <h2 class="font-size-16 fw-normal text-gray pb-5">
+                                  Tasks
+                                </h2>
+                                <span class="font-size-24 fw-bold">{{ timeDashboardSummary?.totalWorkingTasks }} /
+                                  <span class="font-size-14 fw-normal">{{
+                                    timeDashboardSummary.totalAvailableTasks
+                                    }}</span></span>
+                              </div>
+                              <div class="card-img red-box">
+                                <mat-icon fontSet="material-icons-outlined">task</mat-icon>
+                              </div>
                             </div>
-                            <div
-                              *ngIf="timeDashboardSummary?.taskScore === 1"
-                              class="d-flex align-items-center success"
-                            >
-                              <mat-icon class="font-size-16">north_east</mat-icon
-                              >{{ timeDashboardSummary?.totalTaskDifference }}
+                            <div class="card-footer pt-10 hr mt-10">
+                              <div class="d-flex align-items-center gap-5">
+                                <div class="view-list d-flex align-items-center gap-5">
+                                  <div *ngIf="timeDashboardSummary?.taskScore === 0"
+                                    class="d-flex align-items-center danger">
+                                    <mat-icon class="font-size-16">south_east</mat-icon>{{
+                                    timeDashboardSummary?.totalTaskDifference }}
+                                  </div>
+                                  <div *ngIf="timeDashboardSummary?.taskScore === 1"
+                                    class="d-flex align-items-center success">
+                                    <mat-icon class="font-size-16">north_east</mat-icon>{{
+                                    timeDashboardSummary?.totalTaskDifference }}
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    </div>
 
-                    <div class="card">
-                      <div class="card-body">
-                        <div class="card-text">
-                          <h2 class="font-size-16 fw-normal text-gray pb-5">
-                            Users
-                          </h2>
-                          <span class="font-size-24 fw-bold"
-                            >{{ timeDashboardSummary?.totalWorkingUsers }} /
-                            <span class="font-size-14 fw-normal">{{
-                              timeDashboardSummary.totalAvailableUsers
-                            }}</span></span
-                          >
-                        </div>
-                        <div class="card-img blue-box">
-                          <mat-icon>people_outline</mat-icon>
-                        </div>
-                      </div>
-                      <div class="card-footer pt-10 hr mt-10">
-                        <div class="d-flex align-items-center gap-5">
-                          <div class="view-list d-flex align-items-center gap-5">
-                            <div
-                              *ngIf="timeDashboardSummary?.userScore === 0"
-                              class="d-flex align-items-center danger"
-                            >
-                              <mat-icon class="font-size-16">south_east</mat-icon
-                              >{{ timeDashboardSummary?.totalUserDifference }}
+                          <div class="card">
+                            <div class="card-body">
+                              <div class="card-text">
+                                <h2 class="font-size-16 fw-normal text-gray pb-5">
+                                  Users
+                                </h2>
+                                <span class="font-size-24 fw-bold">{{ timeDashboardSummary?.totalWorkingUsers }} /
+                                  <span class="font-size-14 fw-normal">{{
+                                    timeDashboardSummary.totalAvailableUsers
+                                    }}</span></span>
+                              </div>
+                              <div class="card-img blue-box">
+                                <mat-icon>people_outline</mat-icon>
+                              </div>
                             </div>
-                            <div
-                              *ngIf="timeDashboardSummary?.userScore === 1"
-                              class="d-flex align-items-center success"
-                            >
-                              <mat-icon class="font-size-16">north_east</mat-icon
-                              >{{ timeDashboardSummary?.totalUserDifference }}
+                            <div class="card-footer pt-10 hr mt-10">
+                              <div class="d-flex align-items-center gap-5">
+                                <div class="view-list d-flex align-items-center gap-5">
+                                  <div *ngIf="timeDashboardSummary?.userScore === 0"
+                                    class="d-flex align-items-center danger">
+                                    <mat-icon class="font-size-16">south_east</mat-icon>{{
+                                    timeDashboardSummary?.totalUserDifference }}
+                                  </div>
+                                  <div *ngIf="timeDashboardSummary?.userScore === 1"
+                                    class="d-flex align-items-center success">
+                                    <mat-icon class="font-size-16">north_east</mat-icon>{{
+                                    timeDashboardSummary?.totalUserDifference }}
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    </div>
 
-                    <div class="card">
-                      <div class="card-body">
-                        <div class="card-text">
-                          <h2 class="font-size-16 fw-normal text-gray pb-5">
-                            Total Time Spent
-                          </h2>
-                          <span class="font-size-24 fw-bold"
-                            >{{ timeDashboardSummary?.totalTimeSpent }} /
-                            <span class="font-size-14 fw-normal">{{
-                              timeDashboardSummary?.totalCapacity
-                            }}</span></span
-                          >
-                        </div>
-                        <div class="card-img orange-box">
-                          <mat-icon>schedule</mat-icon>
-                        </div>
-                      </div>
-                      <div class="card-footer pt-10 hr mt-10">
-                        <div class="d-flex align-items-center gap-5">
-                          <div class="view-list d-flex align-items-center gap-5">
-                            <div
-                              *ngIf="timeDashboardSummary?.timeScore === 0"
-                              class="d-flex align-items-center danger"
-                            >
-                              <mat-icon class="font-size-16">south_east</mat-icon
-                              >{{ timeDashboardSummary?.totalTimeDifference }}
+                          <div class="card">
+                            <div class="card-body">
+                              <div class="card-text">
+                                <h2 class="font-size-16 fw-normal text-gray pb-5">
+                                  Total Time Spent
+                                </h2>
+                                <span class="font-size-24 fw-bold">{{ timeDashboardSummary?.totalTimeSpent }} /
+                                  <span class="font-size-14 fw-normal">{{
+                                    timeDashboardSummary?.totalCapacity
+                                    }}</span></span>
+                              </div>
+                              <div class="card-img orange-box">
+                                <mat-icon>schedule</mat-icon>
+                              </div>
                             </div>
-                            <div
-                              *ngIf="timeDashboardSummary?.timeScore === 1"
-                              class="d-flex align-items-center success"
-                            >
-                              <mat-icon class="font-size-16">north_east</mat-icon
-                              >{{ timeDashboardSummary?.totalTimeDifference }}
+                            <div class="card-footer pt-10 hr mt-10">
+                              <div class="d-flex align-items-center gap-5">
+                                <div class="view-list d-flex align-items-center gap-5">
+                                  <div *ngIf="timeDashboardSummary?.timeScore === 0"
+                                    class="d-flex align-items-center danger">
+                                    <mat-icon class="font-size-16">south_east</mat-icon>{{
+                                    timeDashboardSummary?.totalTimeDifference }}
+                                  </div>
+                                  <div *ngIf="timeDashboardSummary?.timeScore === 1"
+                                    class="d-flex align-items-center success">
+                                    <mat-icon class="font-size-16">north_east</mat-icon>{{
+                                    timeDashboardSummary?.totalTimeDifference }}
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div
-                *ngIf="
-                  widget.widgetId === dashboardWidget.MostvsLeastCounts &&
-                  widget.isEnable
-                "
-                id="one"
-                class="e-panel"
-                data-row="1"
-                data-col="0"
-                data-sizex="3"
-                data-sizey="1"
-              >
-                <div class="card p-0">
-                  <div
-                    class="dash-heading hr-bottom d-flex align-items-center justify-space-between"
-                  >
-                    <div class="dash-title">Most vs. Least Counts</div>
-                    <span
-                      id="close"
-                      class="e-template-icon e-close-icon"
-                      (click)="onCloseIcon(widget, $event)"
-                    >
-                      <mat-icon class="cursor-pointer">close</mat-icon>
-                    </span>
+                </mat-card-content>
+              </mat-card>
+              <mat-card *ngIf="card.title==='Card 2'" cdkDrag (cdkDragEntered)="entered($event)" [cdkDragData]="i" class="dashboard-card">
+                <mat-card-content class="dashboard-card-content">
+                  <h1>{{ card.title }}</h1>
+                  <div class="dash-col-6">
+                    <div class="card p-0">
+                      <div class="dash-heading hr-bottom d-flex align-items-center justify-space-between pt-5 pb-5">
+                        <div class="dash-title">Task Wise Hours Details</div>
+                        <div class="dash-dropdown-list d-flex align-items-center gap-15">
+                          <span id="close" class="e-template-icon e-close-icon">
+                            <mat-icon class="cursor-pointer">close</mat-icon>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="dash-body pb-0">
+                        <div *ngIf="seriesData.length">
+                          <div class="d-flex justify-content-center gap-30 total-invoice">
+                            <div class="total-invoice-wrapper text-align-center">
+                              <p class="total-title mb-5">Total Hours</p>
+                              <p class="fw-bold font-size-16 mb-0">
+                                {{ taskWiseHoursDetails.totalHours }}
+                              </p>
+                            </div>
+                            <div class="total-invoice-wrapper text-align-center">
+                              <p class="total-title mb-5">Billable Hours</p>
+                              <p class="fw-bold text-success font-size-16 mb-0">
+                                {{ taskWiseHoursDetails.totalBillableHours }}
+                              </p>
+                            </div>
+                            <div class="total-invoice-wrapper text-align-center">
+                              <p class="total-title mb-5">Non-Billable Hours</p>
+                              <p class="fw-bold text-danger-100 font-size-16 mb-0">
+                                {{ taskWiseHoursDetails.totalNonBillableHours }}
+                              </p>
+                            </div>
+                          </div>
+                          <ejs-chart id="chart-container" class="weekly-box" [palettes]="palette"
+                            [primaryXAxis]="primaryXAxis" [primaryYAxis]="primaryYAxis" [tooltip]="tooltip"
+                            [legendSettings]="legend">
+                            <e-series-collection>
+                              <ng-container *ngFor="let series of seriesData">
+                                <e-series [dataSource]="series.data" type="StackingColumn" columnWidth="0.3"
+                                  [name]="series.name" xName="x" yName="y"></e-series>
+                              </ng-container>
+                            </e-series-collection>
+                          </ejs-chart>
+                        </div>
+                        <div class="norecord-chart" *ngIf="seriesData?.length === 0">
+                          <p class="pt-10">No data available yet!</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
+                </mat-card-content>
+              </mat-card>
+              <mat-card *ngIf="card.title==='Card 3'" cdkDrag (cdkDragEntered)="entered($event)" [cdkDragData]="i" class="dashboard-card">
+                <mat-card-content class="dashboard-card-content">
+                  <h1>{{ card.title }}</h1>
+                  <div class="dash-col-3">
+                    <div class="card p-0">
+                      <div class="dash-heading hr-bottom d-flex align-items-center justify-space-between">
+                        <div class="dash-title">Timer Widget</div>
+                        <span id="close" class="e-template-icon e-close-icon">
+                          <mat-icon class="cursor-pointer">close</mat-icon>
+                        </span>
+                      </div>
+                      <div class="dash-body text-align-center pt-2 pb-2">
+                        <div class="text-align-center">
+                          <img src="assets/images/timer-img.svg" alt="Timer" width="70px" />
+                        </div>
+                        <div class="wp-100 mt-2">
+                          <div class="form-field">
+                            <mat-form-field appearance="fill" class="w-200">
+                              <mat-select #mytask panelClass="myPanelClass" placeholder="VAT Return Forms"
+                                [disableOptionCentering]="true">
+                                <mat-option value="0">VAT Return Forms</mat-option>
+                                <mat-option value="1">VAT Return Forms</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
 
-                  <div>
-                    <div
-                      class="d-flex justify-space-between gap-10 hr-bottom pl-1 pr-1"
-                    >
-                      <div class="w-100 pt-10 pb-10 hr-right"></div>
-                      <div class="wp-100 d-flex justify-space-between gap-10">
-                        <div
-                          class="wp-50 text-align-center pt-10 pb-10 hr-right fw-bold"
-                        >
-                          Profit
-                        </div>
-                        <div class="wp-50 text-align-center pt-10 pb-10 fw-bold">
-                          Working Hours
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="d-flex justify-space-between gap-10 hr-bottom pl-1 pr-1"
-                    >
-                      <div class="w-100 pt-10 pb-10 hr-right"></div>
-                      <div class="wp-100 d-flex justify-space-between gap-10">
-                        <div
-                          class="wp-25 d-flex align-items-center justify-content-center pt-10 pb-10 hr-right"
-                        >
-                          <mat-icon
-                            fontSet="material-icons-outlined"
-                            class="success"
-                            >north_east</mat-icon
-                          >
-                          Most (GBP)
-                        </div>
-                        <div
-                          class="wp-25 d-flex align-items-center justify-content-center pt-10 pb-10 hr-right"
-                        >
-                          <mat-icon fontSet="material-icons-outlined" class="danger"
-                            >south_east</mat-icon
-                          >Least (GBP)
-                        </div>
-                        <div
-                          class="wp-25 d-flex align-items-center justify-content-center pt-10 pb-10 hr-right"
-                        >
-                          <mat-icon
-                            fontSet="material-icons-outlined"
-                            class="success"
-                          >
-                            north_east</mat-icon
-                          >
-                          Most (H)
-                        </div>
-                        <div
-                          class="wp-25 d-flex align-items-center justify-content-center pt-10 pb-10"
-                        >
-                          <mat-icon fontSet="material-icons-outlined" class="danger"
-                            >south_east</mat-icon
-                          >Least (H)
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="d-flex justify-space-between gap-10 hr-bottom pl-1 pr-1"
-                    >
-                      <div
-                        class="w-100 pt-10 pb-10 hr-right d-flex align-items-center gap-5 fw-bold"
-                      >
-                        <mat-icon
-                          fontSet="material-icons-outlined"
-                          class="font-size-16"
-                          >task</mat-icon
-                        >
-                        Task
-                      </div>
-                      <div class="wp-100 d-flex justify-space-between gap-10">
-                        <div class="wp-25 pt-10 pb-10 hr-right">
-                          <div class="d-flex justify-space-between gap-10 pr-10">
-                            <div>{{ mostLeastCount.mostProfitableTaskName }}</div>
-                            <div
-                              *ngIf="
-                                mostLeastCount.mostProfitableTaskAmount !== null
-                              "
-                              class="fw-bold"
-                              [ngClass]="
-                                mostLeastCount.mostProfitableTaskAmount < 0
-                                  ? 'danger'
-                                  : ''
-                              "
-                            >
-                              £ {{ mostLeastCount.mostProfitableTaskAmount }}
-                            </div>
-                          </div>
-                        </div>
-                        <div class="wp-25 pt-10 pb-10 hr-right">
-                          <div class="d-flex justify-space-between gap-10 pr-10">
-                            <div>{{ mostLeastCount.leastProfitableTaskName }}</div>
-                            <div
-                              *ngIf="
-                                mostLeastCount.leastProfitableTaskAmount !== null
-                              "
-                              class="fw-bold"
-                              [ngClass]="
-                                mostLeastCount.leastProfitableTaskAmount < 0
-                                  ? 'danger'
-                                  : ''
-                              "
-                            >
-                              £ {{ mostLeastCount.leastProfitableTaskAmount }}
-                            </div>
-                          </div>
-                        </div>
-                        <div class="wp-25 pt-10 pb-10 hr-right">
-                          <div class="d-flex justify-space-between gap-10 pr-10">
-                            <div>{{ mostLeastCount.mostTimeTakingTaskName }}</div>
-                            <div
-                              *ngIf="
-                                mostLeastCount.mostTimeTakingTaskHours !== null
-                              "
-                              class="fw-bold"
-                              [ngClass]="
-                                mostLeastCount.mostTimeTakingTaskHours.includes('-')
-                                  ? 'danger'
-                                  : ''
-                              "
-                            >
-                              {{ mostLeastCount.mostTimeTakingTaskHours }} H
-                            </div>
-                          </div>
-                        </div>
-                        <div class="wp-25 pt-10 pb-10">
-                          <div class="d-flex justify-space-between gap-10 pr-10">
-                            <div>{{ mostLeastCount.leastTimeTakingTaskName }}</div>
-                            <div
-                              *ngIf="
-                                mostLeastCount.leastTimeTakingTaskHours !== null
-                              "
-                              class="fw-bold"
-                              [ngClass]="
-                                mostLeastCount.leastTimeTakingTaskHours.includes(
-                                  '-'
-                                )
-                                  ? 'danger'
-                                  : ''
-                              "
-                            >
-                              {{ mostLeastCount.leastTimeTakingTaskHours }} H
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="d-flex justify-space-between gap-10 hr-bottom pl-1 pr-1"
-                    >
-                      <div
-                        class="w-100 pt-10 pb-10 hr-right d-flex align-items-center gap-5 fw-bold"
-                      >
-                        <mat-icon
-                          fontSet="material-icons-outlined"
-                          class="font-size-16"
-                          >work_outline</mat-icon
-                        >
-                        Client
-                      </div>
-                      <div class="wp-100 d-flex justify-space-between gap-10">
-                        <div class="wp-25 pt-10 pb-10 hr-right">
-                          <div class="d-flex justify-space-between gap-10 pr-10">
-                            <div>{{ mostLeastCount.mostProfitableClientName }}</div>
-                            <div
-                              *ngIf="
-                                mostLeastCount.mostProfitableClientAmount !== null
-                              "
-                              class="fw-bold"
-                              [ngClass]="
-                                mostLeastCount.mostProfitableClientAmount < 0
-                                  ? 'danger'
-                                  : ''
-                              "
-                            >
-                              £ {{ mostLeastCount.mostProfitableClientAmount }}
-                            </div>
-                          </div>
-                        </div>
-                        <div class="wp-25 pt-10 pb-10 hr-right">
-                          <div class="d-flex justify-space-between gap-10 pr-10">
-                            <div>
-                              {{ mostLeastCount.leastProfitableClientName }}
-                            </div>
-                            <div
-                              *ngIf="
-                                mostLeastCount.leastProfitableClientAmount !== null
-                              "
-                              class="fw-bold"
-                              [ngClass]="
-                                mostLeastCount.leastProfitableClientAmount < 0
-                                  ? 'danger'
-                                  : ''
-                              "
-                            >
-                              £ {{ mostLeastCount.leastProfitableClientAmount }}
-                            </div>
-                          </div>
-                        </div>
-                        <div class="wp-25 pt-10 pb-10 hr-right">
-                          <div class="d-flex justify-space-between gap-10 pr-10">
-                            <div>{{ mostLeastCount.mostTimeTakingClientName }}</div>
-                            <div
-                              *ngIf="
-                                mostLeastCount.mostTimeTakingClientHours !== null
-                              "
-                              class="fw-bold"
-                              [ngClass]="
-                                mostLeastCount.mostTimeTakingClientHours.includes(
-                                  '-'
-                                )
-                                  ? 'danger'
-                                  : ''
-                              "
-                            >
-                              {{ mostLeastCount.mostTimeTakingClientHours }} H
-                            </div>
-                          </div>
-                        </div>
-                        <div class="wp-25 pt-10 pb-10">
-                          <div class="d-flex justify-space-between gap-10 pr-10">
-                            <div>
-                              {{ mostLeastCount.leastTimeTakingClientName }}
-                            </div>
-                            <div
-                              *ngIf="
-                                mostLeastCount.leastTimeTakingClientHours !== null
-                              "
-                              class="fw-bold"
-                              [ngClass]="
-                                mostLeastCount.leastTimeTakingClientHours.includes(
-                                  '-'
-                                )
-                                  ? 'danger'
-                                  : ''
-                              "
-                            >
-                              {{ mostLeastCount.leastTimeTakingClientHours }} H
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="d-flex justify-space-between gap-10 pl-1 pr-1">
-                      <div
-                        class="w-100 pt-10 pb-10 hr-right d-flex align-items-center gap-5 fw-bold"
-                      >
-                        <mat-icon
-                          fontSet="material-icons-outlined"
-                          class="font-size-16"
-                          >people_outline</mat-icon
-                        >
-                        User
-                      </div>
-                      <div class="wp-100 d-flex justify-space-between gap-10">
-                        <div class="wp-25 pt-10 pb-10 hr-right">
-                          <div class="d-flex justify-space-between gap-10 pr-10">
-                            <div>
-                              {{ mostLeastCount.mostWorkingUserNameByAmount }}
-                            </div>
-                            <div
-                              *ngIf="
-                                mostLeastCount.mostWorkingUserByAmount !== null
-                              "
-                              class="fw-bold"
-                              [ngClass]="
-                                mostLeastCount.mostWorkingUserByAmount < 0
-                                  ? 'danger'
-                                  : ''
-                              "
-                            >
-                              £ {{ mostLeastCount.mostWorkingUserByAmount }}
-                            </div>
-                          </div>
-                        </div>
-                        <div class="wp-25 pt-10 pb-10 hr-right">
-                          <div class="d-flex justify-space-between gap-10 pr-10">
-                            <div>
-                              {{ mostLeastCount.leastWorkingUserNameByAmount }}
-                            </div>
-                            <div
-                              *ngIf="
-                                mostLeastCount.leastWorkingUserByAmount !== null
-                              "
-                              class="fw-bold"
-                              [ngClass]="
-                                mostLeastCount.leastWorkingUserByAmount < 0
-                                  ? 'danger'
-                                  : ''
-                              "
-                            >
-                              £ {{ mostLeastCount.leastWorkingUserByAmount }}
-                            </div>
-                          </div>
-                        </div>
-                        <div class="wp-25 pt-10 pb-10 hr-right">
-                          <div class="d-flex justify-space-between gap-10 pr-10">
-                            <div>
-                              {{ mostLeastCount.mostWorkingUserNameByTime }}
-                            </div>
-                            <div
-                              *ngIf="mostLeastCount.mostWorkingUserHours !== null"
-                              class="fw-bold"
-                              [ngClass]="
-                                mostLeastCount.mostWorkingUserHours.includes('-')
-                                  ? 'danger'
-                                  : ''
-                              "
-                            >
-                              {{ mostLeastCount.mostWorkingUserHours }} H
-                            </div>
-                          </div>
-                        </div>
-                        <div class="wp-25 pt-10 pb-10">
-                          <div class="d-flex justify-space-between gap-10 pr-10">
-                            <div>
-                              {{ mostLeastCount.leastWorkingUserNameByTime }}
-                            </div>
-                            <div
-                              *ngIf="mostLeastCount.leastWorkingUserHours !== null"
-                              class="fw-bold"
-                              [ngClass]="
-                                mostLeastCount.leastWorkingUserHours.includes('-')
-                                  ? 'danger'
-                                  : ''
-                              "
-                            >
-                              {{ mostLeastCount.leastWorkingUserHours }} H
-                            </div>
-                          </div>
+                          <button class="action-button secondary-button timer-icon" mat-dialog-close disableRipple
+                            type="button" mat-button disableRipple>
+                            Start Timer
+                          </button>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div
-                *ngIf="
-                  widget.widgetId === dashboardWidget.TaskWiseHoursDetails &&
-                  widget.isEnable
-                "
-                id="two"
-                class="e-panel"
-                data-row="2"
-                data-col="0"
-                data-sizex="2"
-                data-sizey="1"
-              >
-                <div class="card p-0">
-                    <div
-                    class="dash-heading hr-bottom d-flex align-items-center justify-space-between pt-5 pb-5"
-                  >
-                    <div class="dash-title">Task Wise Hours Details</div>
-                    <div
-                      class="dash-dropdown-list d-flex align-items-center gap-15"
-                    >
-                      <span
-                        id="close"
-                        class="e-template-icon e-close-icon"
-                        (click)="onCloseIcon(widget, $event)"
-                      >
-                        <mat-icon class="cursor-pointer">close</mat-icon>
-                      </span>
-                    </div>
-                  </div>
-                  <div class="dash-body pb-0">
-                    <div *ngIf="seriesData.length">
-                      <div class="d-flex justify-content-center gap-30 total-invoice">
-                        <div class="total-invoice-wrapper text-align-center">
-                          <p class="total-title mb-5">Total Hours</p>
-                          <p class="fw-bold font-size-16 mb-0">
-                            {{ taskWiseHoursDetails.totalHours }}
-                          </p>
-                        </div>
-                        <div class="total-invoice-wrapper text-align-center">
-                          <p class="total-title mb-5">Billable Hours</p>
-                          <p class="fw-bold text-success font-size-16 mb-0">
-                            {{ taskWiseHoursDetails.totalBillableHours }}
-                          </p>
-                        </div>
-                        <div class="total-invoice-wrapper text-align-center">
-                          <p class="total-title mb-5">Non-Billable Hours</p>
-                          <p class="fw-bold text-danger-100 font-size-16 mb-0">
-                            {{ taskWiseHoursDetails.totalNonBillableHours }}
-                          </p>
-                        </div>
-                      </div>
-                      <ejs-chart
-                        id="chart-container"
-                        class="weekly-box"
-                        [palettes]="palette"
-                        [primaryXAxis]="primaryXAxis"
-                        [primaryYAxis]="primaryYAxis"
-                        [tooltip]="tooltip"
-                        [legendSettings]="legend"
-                      >
-                        <e-series-collection>
-                          <ng-container *ngFor="let series of seriesData">
-                            <e-series
-                              [dataSource]="series.data"
-                              type="StackingColumn"
-                              columnWidth="0.3"
-                              [name]="series.name"
-                              xName="x"
-                              yName="y"
-                            ></e-series>
-                          </ng-container>
-                        </e-series-collection>
-                      </ejs-chart>
-                    </div>
-                    <div class="norecord-chart" *ngIf="seriesData?.length === 0">
-                      <p class="pt-10">No data available yet!</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                *ngIf="
-                  widget.widgetId === dashboardWidget.TimerWidget && widget.isEnable
-                "
-                id="three"
-                class="e-panel"
-                data-row="2"
-                data-col="2"
-                data-sizex="1"
-                data-sizey="1"
-              >
-                <div class="card p-0">
-                  <div
-                    class="dash-heading hr-bottom d-flex align-items-center justify-space-between"
-                  >
-                    <div class="dash-title">Timer Widget</div>
-                    <span
-                      id="close"
-                      class="e-template-icon e-close-icon"
-                      (click)="onCloseIcon(widget, $event)"
-                    >
-                      <mat-icon class="cursor-pointer">close</mat-icon>
-                    </span>
-                  </div>
-                  <div class="dash-body text-align-center pt-2 pb-2">
-                    <div class="text-align-center">
-                      <img
-                        src="assets/images/timer-img.svg"
-                        alt="Timer"
-                        width="70px"
-                      />
-                    </div>
-                    <div class="wp-100 mt-2">
-                      <div class="form-field">
-                        <mat-form-field appearance="fill" class="w-200">
-                          <mat-select
-                            #mytask
-                            panelClass="myPanelClass"
-                            placeholder="VAT Return Forms"
-                            [disableOptionCentering]="true"
-                          >
-                            <mat-option value="0">VAT Return Forms</mat-option>
-                            <mat-option value="1">VAT Return Forms</mat-option>
-                          </mat-select>
-                        </mat-form-field>
-                      </div>
-
-                      <button
-                        class="action-button secondary-button timer-icon"
-                        mat-dialog-close
-                        disableRipple
-                        type="button"
-                        mat-button
-                        disableRipple
-                      >
-                        Start Timer
-                      </button>
-                  </div>
-              </div>
-            </div>
-          </div>
-          <div
-            *ngIf="
-              widget.widgetId === dashboardWidget.FeesSummary && widget.isEnable
-            "
-            id="nine"
-            class="e-panel"
-            data-row="6"
-            data-col="0"
-            data-sizex="3"
-            data-sizey="1"
-          >
-            <div class="card p-0">
-              <div
-                class="dash-heading hr-bottom d-flex align-items-center justify-space-between"
-              >
-                <div class="dash-title">Fees Summary</div>
-                <span
-                  id="close"
-                  class="e-template-icon e-close-icon"
-                  (click)="onCloseIcon(widget, $event)"
-                >
-                  <mat-icon class="cursor-pointer">close</mat-icon>
-                </span>
-              </div>
-              <div class="card-wrapper p-1">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="card-text">
-                      <h2 class="font-size-16 fw-normal text-gray pb-5">
-                        Total Invoiced (GBP)
-                      </h2>
-                      <span
-                        *ngIf="
-                          feesDashboardSummary?.totalInvoiceAmount !== null
-                        "
-                        >£ {{ feesDashboardSummary?.totalInvoiceAmount }}</span
-                      >
-                    </div>
-                    <div class="card-img green-box">
-                      <mat-icon fontSet="material-icons-outlined"
-                        >update</mat-icon
-                      >
-                    </div>
-                  </div>
-                  <div class="card-footer pt-10 hr mt-10">
-                    <div class="d-flex align-items-center gap-5">
-                      <div
-                        [ngClass]="
-                          feesDashboardSummary?.totalInvoiceScore === 0
-                            ? 'danger'
-                            : 'success'
-                        "
-                        class="view-list d-flex align-items-center gap-5"
-                      >
-                        <mat-icon
-                          class="font-size-16"
-                          *ngIf="feesDashboardSummary?.totalInvoiceScore === 0"
-                          >south_east</mat-icon
-                        >
-                        <mat-icon
-                          class="font-size-16"
-                          *ngIf="feesDashboardSummary?.totalInvoiceScore === 1"
-                          >north_east</mat-icon
-                        >
-                        <span class="font-size-14">{{
-                          feesDashboardSummary?.totalInvoiceAmountDifference
-                        }}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="card">
-                  <div class="card-body">
-                    <div class="card-text">
-                      <h2 class="font-size-16 fw-normal text-gray pb-5">
-                        Paid Amount (GBP)
-                      </h2>
-                      <span
-                        *ngIf="
-                          feesDashboardSummary?.totalPaidInvoiceAmount !== null
-                        "
-                        >£
-                        {{ feesDashboardSummary?.totalPaidInvoiceAmount }}</span
-                      >
-                    </div>
-                    <div class="card-img red-box">
-                      <mat-icon>currency_pound</mat-icon>
-                    </div>
-                  </div>
-                  <div class="card-footer pt-10 hr mt-10">
-                    <div class="d-flex align-items-center gap-5">
-                      <div
-                        [ngClass]="
-                          feesDashboardSummary?.totalPaidInvoiceScore === 0
-                            ? 'danger'
-                            : 'success'
-                        "
-                        class="view-list d-flex align-items-center gap-5"
-                      >
-                        <mat-icon
-                          class="font-size-16"
-                          *ngIf="
-                            feesDashboardSummary?.totalPaidInvoiceScore === 0
-                          "
-                          >south_east</mat-icon
-                        >
-                        <mat-icon
-                          class="font-size-16"
-                          *ngIf="
-                            feesDashboardSummary?.totalPaidInvoiceScore === 1
-                          "
-                          >north_east</mat-icon
-                        >
-                        <span class="font-size-14">{{
-                          feesDashboardSummary?.totalPaidInvoiceAmountDifference
-                        }}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="card">
-                  <div class="card-body">
-                    <div class="card-text">
-                      <h2 class="font-size-16 fw-normal text-gray pb-5">
-                        Unpaid Amount (GBP)
-                      </h2>
-                      <span
-                        *ngIf="
-                          feesDashboardSummary?.totalUnPaidInvoiceAmount !==
-                          null
-                        "
-                        >£
-                        {{
-                          feesDashboardSummary?.totalUnPaidInvoiceAmount
-                        }}</span
-                      >
-                    </div>
-                    <div class="card-img blue-box">
-                      <mat-icon>people_outline</mat-icon>
-                    </div>
-                  </div>
-                  <div class="card-footer pt-10 hr mt-10">
-                    <div class="d-flex align-items-center gap-5">
-                      <div
-                        [ngClass]="
-                          feesDashboardSummary?.totalUnPaidInvoiceScore === 0
-                            ? 'danger'
-                            : 'success'
-                        "
-                        class="view-list d-flex align-items-center gap-5"
-                      >
-                        <mat-icon
-                          class="font-size-16"
-                          *ngIf="
-                            feesDashboardSummary?.totalUnPaidInvoiceScore === 0
-                          "
-                          >south_east</mat-icon
-                        >
-                        <mat-icon
-                          class="font-size-16"
-                          *ngIf="
-                            feesDashboardSummary?.totalUnPaidInvoiceScore === 1
-                          "
-                          >north_east</mat-icon
-                        >
-                        <span class="font-size-14">{{
-                          feesDashboardSummary?.totalUnPaidInvoiceAmountDifference
-                        }}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="card">
-                  <div class="card-body">
-                    <div class="card-text">
-                      <h2 class="font-size-16 fw-normal text-gray pb-5">
-                        Overdue Amount (GBP)
-                      </h2>
-                      <span
-                        *ngIf="
-                          feesDashboardSummary?.totalOverdueAmount !== null
-                        "
-                        >£ {{ feesDashboardSummary?.totalOverdueAmount }}</span
-                      >
-                    </div>
-                    <div class="card-img orange-box">
-                      <mat-icon>schedule</mat-icon>
-                    </div>
-                  </div>
-                  <div class="card-footer pt-10 hr mt-10">
-                    <div class="d-flex align-items-center gap-5">
-                      <div
-                        [ngClass]="
-                          feesDashboardSummary?.totalOverdueScore === 0
-                            ? 'danger'
-                            : 'success'
-                        "
-                        class="view-list d-flex align-items-center gap-5"
-                      >
-                        <mat-icon
-                          class="font-size-16"
-                          *ngIf="feesDashboardSummary?.totalOverdueScore === 0"
-                          >south_east</mat-icon
-                        >
-                        <mat-icon
-                          class="font-size-16"
-                          *ngIf="feesDashboardSummary?.totalOverdueScore === 1"
-                          >north_east</mat-icon
-                        >
-                        <span class="font-size-14">{{
-                          feesDashboardSummary?.totalOverdueAmountDifference
-                        }}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div
-            *ngIf="
-              widget.widgetId === dashboardWidget.IncomeTrend && widget.isEnable
-            "
-            id="ten"
-            class="e-panel dash-col"
-            data-row="7"
-            data-col="0"
-            data-sizex="2"
-            data-sizey="1"
-          >
-            <div class="card p-0">
-              <div
-                class="dash-heading hr-bottom d-flex align-items-center justify-space-between"
-              >
-                <div class="dash-title">Income Trend</div>
-                <span
-                  id="close"
-                  class="e-template-icon e-close-icon"
-                  (click)="onCloseIcon(widget, $event)"
-                >
-                  <mat-icon class="cursor-pointer">close</mat-icon>
-                </span>
-              </div>
-              <div class="dash-body">
-                <div class="cust-height mt-1">
-                  <ejs-chart
-                    style="display: block"
-                    class="fees-dash-height"
-                    [chartArea]="chartArea"
-                    [width]="width"
-                    align="center"
-                    id="chartcontainer"
-                    [primaryXAxis]="primaryXAxisIncomeTrend"
-                    [primaryYAxis]="primaryYAxisIncomeTrend"
-                    [tooltip]="tooltipIncomeTrend"
-                    (load)="load($event)"
-                    [legendSettings]="legendIncomeTrend"
-                  >
-                    <e-series-collection>
-                      <e-series
-                        [dataSource]="data"
-                        type="StackingLine"
-                        xName="x"
-                        yName="y"
-                        name="Invoiced"
-                        width="2"
-                        [marker]="marker"
-                        opacity="1"
-                        fill="#7B76D3"
-                      >
-                      </e-series>
-                      <e-series
-                        [dataSource]="data1"
-                        type="StackingLine"
-                        xName="x"
-                        yName="y"
-                        name="Received"
-                        width="2"
-                        [marker]="marker1"
-                        opacity="1"
-                        fill="#F2816F"
-                      >
-                      </e-series>
-                    </e-series-collection>
-                  </ejs-chart>
-                </div>
-
-                <div class="norecord-chart d-none">
-                  <p class="pt-10">No data available yet!</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            *ngIf="
-              widget.widgetId === dashboardWidget.RevenueFlow && widget.isEnable
-            "
-            id="eleven"
-            class="e-panel dash-col"
-            data-row="7"
-            data-col="2"
-            data-sizex="1"
-            data-sizey="1"
-          >
-            <div class="card p-0">
-              <div
-                class="dash-heading hr-bottom d-flex align-items-center justify-space-between"
-              >
-                <div class="dash-title">Revenue Flow</div>
-                <span
-                  id="close"
-                  class="e-template-icon e-close-icon"
-                  (click)="onCloseIcon(widget, $event)"
-                >
-                  <mat-icon class="cursor-pointer">close</mat-icon>
-                </span>
-              </div>
-              <div class="dash-body">
-                <div class="cust-height mt-1">
-                  <ejs-chart
-                    allowResizing="true"
-                    class="fees-dash-height"
-                    id="revenue-flow"
-                    [primaryXAxis]="primaryXAxisRevenueFlow"
-                    [primaryYAxis]="primaryYAxisRevenueFlow"
-                    [title]="titleRevenueFlow"
-                    [tooltip]="tooltipRevenueFlow"
-                  >
-                    <e-series-collection>
-                      <e-series
-                        fill="#B9DD94"
-                        columnWidth="0.4"
-                        [dataSource]="chartDataRevenueFlow"
-                        type="Column"
-                        xName="country"
-                        yName="gold"
-                      ></e-series>
-                    </e-series-collection>
-                  </ejs-chart>
-                </div>
-
-                <div class="norecord-chart d-none">
-                  <p class="pt-10">No data available yet!</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div
-            *ngIf="
-              widget.widgetId === dashboardWidget.InvoiceAmountByCategory &&
-              widget.isEnable
-            "
-            id="twelve"
-            class="e-panel dash-col"
-            data-row="8"
-            data-col="0"
-            data-sizex="1"
-            data-sizey="1"
-          >
-            <div class="card p-0">
-              <div
-                class="dash-heading hr-bottom d-flex align-items-center justify-space-between"
-              >
-                <div class="dash-title">Invoice Amount by Category</div>
-                <span
-                  id="close"
-                  class="e-template-icon e-close-icon"
-                  (click)="onCloseIcon(widget, $event)"
-                >
-                  <mat-icon class="cursor-pointer">close</mat-icon>
-                </span>
-              </div>
-              <div class="dash-body p-0">
-                <div>
-                  <ejs-accumulationchart
-                    id="invoice-category"
-                    class="fees-dash-height"
-                    align="center"
-                    [legendSettings]="legendSettingsInvoiceAmountByCategory"
-                    [tooltip]="tooltipInvoiceAmountByCategory"
-                    selectionMode="Point"
-                    (load)="loadInvoiceAmountByCategory($event)"
-                    [enableBorderOnMouseMove]="false"
-                  >
-                    <e-accumulation-series-collection>
-                      <e-accumulation-series
-                        name="Revenue"
-                        [palettes]="paletteInvoiceAmountByCategory"
-                        [dataSource]="dataInvoiceAmountByCategory"
-                        xName="x"
-                        [startAngle]="startAngle"
-                        yName="y"
-                        [radius]="radius"
-                        [innerRadius]="innerRadius"
-                        [dataLabel]="dataLabelInvoiceAmountByCategory"
-                      >
-                      </e-accumulation-series>
-                    </e-accumulation-series-collection>
-                  </ejs-accumulationchart>
-                </div>
-
-                <div class="norecord-chart d-none">
-                  <p class="pt-10">No data available yet!</p>
-                </div>
-
-              </div>
-            </div>
-          </div>
-            </div>
-          </ejs-dashboardlayout>
-        </div>
+                </mat-card-content>
+              </mat-card>
+          </cdk-drop-list>
+        </mat-grid-tile>
+      </mat-grid-list>
       </div>
+    </div>
+  </div>
 </div>

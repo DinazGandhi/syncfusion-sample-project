@@ -33,6 +33,13 @@ import { DashboardLayoutModule } from '@syncfusion/ej2-angular-layouts';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { LayoutModule } from '@angular/cdk/layout';
+
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatMenuModule } from '@angular/material/menu';
+
 @NgModule({
   declarations: [
     DashboardComponent
@@ -46,7 +53,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MatSelectModule,
     AccumulationChartModule,
     FormsModule,
-    NgSelectModule
+    NgSelectModule,
+    MatCardModule,
+    DragDropModule,
+    MatGridListModule,
+    MatMenuModule,
+    LayoutModule
   ],
   providers: [
     DatePipe,

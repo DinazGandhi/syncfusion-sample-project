@@ -53,3 +53,68 @@
 .norecord-chart {
   height: 200px;
 }
+
+
+
+
+
+.dash-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -10px;
+  margin-left: -10px;
+  .card {
+    margin: 10px;
+  }
+  .dash-col-full {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .dash-col-6 {
+    flex: 0 0 66.66%;
+    max-width: 66.66%;
+  }
+  .dash-col-3 {
+    flex: 0 0 33.33%;
+    max-width: 33.33%;
+  }
+}
+.grid-container {
+  margin: 10px;
+}
+
+// .dashboard-card {
+//   position: absolute;
+//   top: 0px;
+//   left: 0px;
+//   right: 0px;
+//   bottom: 0px;
+// }
+
+.more-button {
+  float: right;
+  font-size: 2em;
+}
+
+.dashboard-card-content {
+  text-align: center;
+}
+
+.cdk-drop-list {
+  height: 100%;
+  width: 100%;
+}
+
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  opacity: 0.5;
+}
+
+.cdk-drag-animating {
+  transition: unset;
+}
+
+.cdk-drag-placeholder {
+  display: none;
+}
